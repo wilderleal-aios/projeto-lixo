@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Memoria do Projeto MARKETING — Wilder Leal | Atualizado 2026-03-06 (Sessao 1 MARKETING)</title>
+  <style>
+    :root {
+      --bg: #0d1117;
+      --surface: #161b22;
+      --surface2: #1c2128;
+      --border: #30363d;
+      --accent: #238636;
+      --accent2: #1f6feb;
+      --accent3: #9e6a03;
+      --accent4: #8b949e;
+      --text: #e6edf3;
+      --text-muted: #8b949e;
+      --green: #3fb950;
+      --blue: #58a6ff;
+      --yellow: #d29922;
+      --purple: #bc8cff;
+      --red: #f85149;
+      --orange: #ffa657;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    /* HEADER */
+    .header {
+      background: linear-gradient(135deg, #0d1117 0%, #1a1f2e 50%, #0d1117 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 40px 32px 32px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .header::before {
+      content: '';
+      position: absolute;
+      top: -50%; left: -50%;
+      width: 200%; height: 200%;
+      background: radial-gradient(ellipse at center, rgba(35, 134, 54, 0.08) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .header-icon { font-size: 48px; margin-bottom: 12px; display: block; }
+    .header h1 { font-size: 28px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+    .header h1 span { color: var(--green); }
+    .header .subtitle { color: var(--text-muted); font-size: 15px; }
+    .badges { display: flex; gap: 8px; justify-content: center; margin-top: 16px; flex-wrap: wrap; }
+    .badge {
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      border: 1px solid;
+    }
+    .badge-green { background: rgba(63,185,80,0.15); border-color: var(--green); color: var(--green); }
+    .badge-blue { background: rgba(88,166,255,0.15); border-color: var(--blue); color: var(--blue); }
+    .badge-yellow { background: rgba(210,153,34,0.15); border-color: var(--yellow); color: var(--yellow); }
+    .badge-purple { background: rgba(188,140,255,0.15); border-color: var(--purple); color: var(--purple); }
+    .badge-orange { background: rgba(255,166,87,0.15); border-color: var(--orange); color: var(--orange); }
+    .badge-red { background: rgba(248,81,73,0.15); border-color: var(--red); color: var(--red); }
+
+    /* NAV */
+    .nav {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 0 32px;
+      display: flex;
+      gap: 0;
+      overflow-x: auto;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .nav a {
+      color: var(--text-muted);
+      text-decoration: none;
+      padding: 12px 16px;
+      font-size: 13px;
+      font-weight: 500;
+      border-bottom: 2px solid transparent;
+      white-space: nowrap;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .nav a:hover { color: var(--text); border-bottom-color: var(--border); }
+
+    /* LAYOUT */
+    .container { max-width: 1100px; margin: 0 auto; padding: 32px; }
+
+    /* STATUS CARD */
+    .status-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 32px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+    .status-item { display: flex; flex-direction: column; gap: 4px; }
+    .status-label { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); }
+    .status-value { font-size: 15px; font-weight: 600; color: var(--text); }
+    .status-value.green { color: var(--green); }
+    .status-value.yellow { color: var(--yellow); }
+    .status-value.blue { color: var(--blue); }
+
+    /* SECTIONS */
+    .section { margin-bottom: 40px; }
+    .section-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .section-title .icon { font-size: 20px; }
+
+    /* CARDS GRID */
+    .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px;
+      transition: border-color 0.2s;
+    }
+    .card:hover { border-color: var(--accent4); }
+    .card-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* AGENTS TABLE */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--surface);
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    th {
+      background: var(--surface2);
+      color: var(--text-muted);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 10px 16px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+    td {
+      padding: 10px 16px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text);
+      font-size: 13px;
+    }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(255,255,255,0.02); }
+
+    /* COMMAND GROUPS */
+    .cmd-group { margin-bottom: 24px; }
+    .cmd-group-title {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+      padding: 6px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .cmd-list { display: flex; flex-direction: column; gap: 6px; }
+    .cmd-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 8px 12px;
+      background: var(--surface2);
+      border-radius: 6px;
+      border: 1px solid var(--border);
+    }
+    .cmd-item:hover { border-color: var(--accent4); }
+    .cmd-tag {
+      font-family: 'Consolas', 'Courier New', monospace;
+      font-size: 13px;
+      color: var(--green);
+      font-weight: 600;
+      white-space: nowrap;
+      min-width: 200px;
+    }
+    .cmd-desc { color: var(--text-muted); font-size: 13px; }
+
+    /* TIMELINE */
+    .timeline { position: relative; padding-left: 24px; }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 7px; top: 0; bottom: 0;
+      width: 2px;
+      background: var(--border);
+    }
+    .timeline-item { position: relative; margin-bottom: 20px; }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -20px; top: 6px;
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: var(--green);
+      border: 2px solid var(--bg);
+    }
+    .timeline-date { font-size: 11px; color: var(--text-muted); margin-bottom: 4px; }
+    .timeline-title { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
+    .timeline-items { list-style: none; }
+    .timeline-items li {
+      font-size: 13px;
+      color: var(--text-muted);
+      padding: 2px 0;
+    }
+    .timeline-items li::before { content: '-> '; color: var(--green); }
+
+    /* CONSTITUTION */
+    .constitution-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px; }
+    .constitution-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+    .constitution-article {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      min-width: 60px;
+    }
+    .constitution-name { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 2px; }
+    .constitution-severity {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+    .sev-non-neg { background: rgba(248,81,73,0.15); color: var(--red); }
+    .sev-must { background: rgba(210,153,34,0.15); color: var(--yellow); }
+    .sev-should { background: rgba(88,166,255,0.15); color: var(--blue); }
+
+    /* NEXT STEPS */
+    .next-steps { display: flex; flex-direction: column; gap: 10px; }
+    .next-step {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 14px 16px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+    }
+    .step-num {
+      width: 28px; height: 28px;
+      background: var(--accent2);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: 700; color: white;
+      flex-shrink: 0;
+    }
+    .step-content { flex: 1; }
+    .step-title { font-size: 14px; font-weight: 600; color: var(--text); }
+    .step-cmd {
+      font-family: 'Consolas', 'Courier New', monospace;
+      font-size: 12px;
+      color: var(--green);
+      margin-top: 3px;
+    }
+
+    /* FOOTER */
+    footer {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 20px 32px;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 12px;
+    }
+    footer strong { color: var(--text); }
+
+    code {
+      font-family: 'Consolas', 'Courier New', monospace;
+      background: var(--surface2);
+      padding: 1px 6px;
+      border-radius: 4px;
+      font-size: 12px;
+      color: var(--orange);
+      border: 1px solid var(--border);
+    }
+
+    .highlight-box {
+      background: rgba(35, 134, 54, 0.08);
+      border: 1px solid rgba(63, 185, 80, 0.3);
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 24px;
+    }
+    .highlight-box .label { font-size: 11px; color: var(--green); font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+    .highlight-box .text { color: var(--text); font-size: 14px; }
+
+    @media (max-width: 640px) {
+      .container { padding: 16px; }
+      .header { padding: 24px 16px; }
+      .nav { padding: 0 16px; }
+      .cmd-tag { min-width: 160px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <span class="header-icon">&#9889;</span>
+  <h1>Projeto MARKETING &mdash; <span>Memoria Completa</span></h1>
+  <div class="subtitle">Synkra AIOS &middot; Wilder Leal &middot; PINEAL AI</div>
+  <div class="badges">
+    <span class="badge badge-green">Ambiente 100% Pronto</span>
+    <span class="badge badge-blue">AIOS v2.0</span>
+    <span class="badge badge-green">@devops Ativo</span>
+    <span class="badge badge-green">Git + GitHub OK</span>
+    <span class="badge badge-purple">2026-03-06 Sessao 1 MARKETING</span>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="nav">
+  <a href="#status">Status</a>
+  <a href="#proximos-passos">Proximos Passos</a>
+  <a href="#decisoes">Decisoes</a>
+  <a href="#agentes">Agentes</a>
+  <a href="#comandos-devops">Comandos DevOps</a>
+  <a href="#constitution">Constitution</a>
+  <a href="#estrutura">Estrutura</a>
+  <a href="#historico">Historico</a>
+</nav>
+
+<!-- CONTENT -->
+<div class="container">
+
+  <!-- STATUS -->
+  <section class="section" id="status">
+    <div class="section-title"><span class="icon">&#128202;</span> Status Atual do Projeto</div>
+
+    <div class="highlight-box">
+      <div class="label">Status Atual &mdash; Sessao 1 MARKETING (2026-03-06)</div>
+      <div class="text">
+        <strong>*environment-bootstrap CONCLUIDO!</strong> &mdash; Git inicializado, repositorio
+        <code>wilderleal-aios/projeto-marketing</code> criado no GitHub (privado), branch <code>master</code>.
+        Commit inicial <code>0e9bec9</code> &mdash; 1.206 arquivos. Environment report gerado em <code>.aios/environment-report.yaml</code>.
+        Proximo passo: <code>*setup-github</code> para configurar CI/CD e branch protection.
+      </div>
+    </div>
+
+    <div class="status-card">
+      <div class="status-item">
+        <span class="status-label">Pasta do Projeto</span>
+        <span class="status-value blue">C:\PROJETO-AIOS\04-PROJETO-MARKETING</span>
+      </div>
+      <div class="status-item">
+        <span class="status-label">Framework</span>
+        <span class="status-value">Synkra AIOS v2.0</span>
+      </div>
+      <div class="status-item">
+        <span class="status-label">Git</span>
+        <span class="status-value green">Inicializado e conectado</span>
+      </div>
+      <div class="status-item">
+        <span class="status-label">Commit Inicial</span>
+        <span class="status-value green">0e9bec9 (1.206 arquivos)</span>
+      </div>
+      <div class="status-item">
+        <span class="status-label">GitHub Account</span>
+        <span class="status-value green">wilderleal-aios</span>
+      </div>
+      <div class="status-item">
+        <span class="status-label">Repositorio</span>
+        <span class="status-value green">wilderleal-aios/projeto-marketing</span>
+      </div>
+      <div class="status-item">
+        <span class="status-label">Branch Padrao</span>
+        <span class="status-value green">master</span>
+      </div>
+      <div class="status-item">
+        <span class="status-label">Agente Ativo</span>
+        <span class="status-value green">@devops (Gage)</span>
+      </div>
+      <div class="status-item">
+        <span class="status-label">Ultima Atualizacao</span>
+        <span class="status-value">2026-03-06 (Sessao 1 MARKETING)</span>
+      </div>
+      <div class="status-item">
+        <span class="status-label">Responsavel</span>
+        <span class="status-value">Wilder Leal &middot; CEO PINEAL AI</span>
+      </div>
+    </div>
+
+    <!-- FERRAMENTAS STATUS -->
+    <div class="section-title" style="margin-top:24px;"><span class="icon">&#128295;</span> Status das Ferramentas</div>
+    <table>
+      <thead>
+        <tr>
+          <th>Ferramenta</th>
+          <th>Status</th>
+          <th>Versao</th>
+          <th>Observacao</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><code>git</code></td><td><span class="badge badge-green">OK</span></td><td>2.53.0</td><td>Pronto</td></tr>
+        <tr><td><code>gh (GitHub CLI)</code></td><td><span class="badge badge-green">OK</span></td><td>2.87.3</td><td>Autenticado como <code>wilderleal-aios</code></td></tr>
+        <tr><td><code>node</code></td><td><span class="badge badge-green">OK</span></td><td>v24.13.1</td><td>Pronto</td></tr>
+        <tr><td><code>npm</code></td><td><span class="badge badge-green">OK</span></td><td>11.8.0</td><td>Pronto</td></tr>
+        <tr><td><code>bun</code></td><td><span class="badge badge-green">OK</span></td><td>1.3.10</td><td>Pronto</td></tr>
+        <tr><td><code>pnpm</code></td><td><span class="badge badge-green">OK</span></td><td>10.30.3</td><td>Instalado</td></tr>
+        <tr><td><code>Docker Desktop</code></td><td><span class="badge badge-green">OK</span></td><td>29.2.1</td><td>Ativo</td></tr>
+        <tr><td><code>WSL</code></td><td><span class="badge badge-green">OK</span></td><td>2.6.3</td><td>Disponivel &mdash; usar <code>wsl bash -c</code> para comandos</td></tr>
+        <tr><td><code>Supabase CLI</code></td><td><span class="badge badge-green">OK</span></td><td>2.75.0</td><td>Instalado</td></tr>
+        <tr><td><code>CodeRabbit</code></td><td><span class="badge badge-yellow">Pendente</span></td><td>&mdash;</td><td>Verificar no WSL: <code>wsl bash -c '~/.local/bin/coderabbit --version'</code></td></tr>
+        <tr><td><code>railway</code></td><td><span class="badge badge-orange">Opcional</span></td><td>&mdash;</td><td>Nao instalado (opcional)</td></tr>
+      </tbody>
+    </table>
+
+    <!-- CHECKLIST BOOTSTRAP -->
+    <div class="section-title" style="margin-top:24px;"><span class="icon">&#9989;</span> Checklist de Bootstrap &mdash; Sessao 1 MARKETING</div>
+    <div class="next-steps">
+      <div class="next-step">
+        <div class="step-num">A</div>
+        <div class="step-content">
+          <div class="step-title">Audit de CLIs essenciais</div>
+          <div class="step-cmd">git, gh, node, npm, docker, supabase, pnpm, bun, WSL &mdash; todos verificados</div>
+        </div>
+        <span class="badge badge-green">Concluido</span>
+      </div>
+      <div class="next-step">
+        <div class="step-num">B</div>
+        <div class="step-content">
+          <div class="step-title">Git init</div>
+          <div class="step-cmd">git init em C:\PROJETO-AIOS\04-PROJETO-MARKETING</div>
+        </div>
+        <span class="badge badge-green">Concluido</span>
+      </div>
+      <div class="next-step">
+        <div class="step-num">C</div>
+        <div class="step-content">
+          <div class="step-title">Commit inicial</div>
+          <div class="step-cmd">git add + git commit &mdash; 0e9bec9 &mdash; 1.206 arquivos &mdash; "chore: initial commit — AIOS Marketing project bootstrap"</div>
+        </div>
+        <span class="badge badge-green">Concluido</span>
+      </div>
+      <div class="next-step">
+        <div class="step-num">D</div>
+        <div class="step-content">
+          <div class="step-title">GitHub repo criado e push realizado</div>
+          <div class="step-cmd">gh repo create wilderleal-aios/projeto-marketing --private &mdash; branch master &mdash; push OK</div>
+        </div>
+        <span class="badge badge-green">Concluido</span>
+      </div>
+      <div class="next-step">
+        <div class="step-num">E</div>
+        <div class="step-content">
+          <div class="step-title">Environment report gerado</div>
+          <div class="step-cmd">.aios/environment-report.yaml criado com status completo das ferramentas</div>
+        </div>
+        <span class="badge badge-green">Concluido</span>
+      </div>
+      <div class="next-step">
+        <div class="step-num">F</div>
+        <div class="step-content">
+          <div class="step-title">Memoria salva</div>
+          <div class="step-cmd">memoria-projeto-marketing.html atualizada + MEMORY.md criado no Claude</div>
+        </div>
+        <span class="badge badge-green">Concluido</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROXIMOS PASSOS -->
+  <section class="section" id="proximos-passos">
+    <div class="section-title"><span class="icon">&#128640;</span> Proximos Passos</div>
+    <div class="next-steps">
+      <div class="next-step">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <div class="step-title">Bootstrap do Ambiente</div>
+          <div class="step-cmd">*environment-bootstrap &mdash; CONCLUIDO na Sessao 1 MARKETING</div>
+        </div>
+        <span class="badge badge-green">Concluido</span>
+      </div>
+      <div class="next-step">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <div class="step-title">Configurar Infraestrutura GitHub</div>
+          <div class="step-cmd">*setup-github &mdash; workflows CI/CD, branch protection, secrets, CodeRabbit</div>
+        </div>
+        <span class="badge badge-red">Proximo</span>
+      </div>
+      <div class="next-step">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <div class="step-title">Criar Planejamento do Projeto</div>
+          <div class="step-cmd">@pm *create-epic &mdash; planejar epics e stories do projeto marketing</div>
+        </div>
+        <span class="badge badge-yellow">Pendente</span>
+      </div>
+      <div class="next-step">
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <div class="step-title">Criar Primeira Story de Desenvolvimento</div>
+          <div class="step-cmd">@sm *create-story</div>
+        </div>
+        <span class="badge badge-yellow">Pendente</span>
+      </div>
+      <div class="next-step">
+        <div class="step-num">5</div>
+        <div class="step-content">
+          <div class="step-title">Iniciar Desenvolvimento</div>
+          <div class="step-cmd">@dev *develop &mdash; implementar primeira feature</div>
+        </div>
+        <span class="badge badge-blue">Em breve</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- DECISOES DO PROJETO -->
+  <section class="section" id="decisoes">
+    <div class="section-title"><span class="icon">&#128204;</span> Decisoes e Preferencias do Projeto</div>
+
+    <div class="card" style="margin-bottom: 16px;">
+      <div class="card-title">&#128260; Renomear Persona do @pm: Morgan &rarr; Davi</div>
+      <table style="border: none; background: transparent;">
+        <tr>
+          <td style="border: none; color: var(--text-muted); padding: 4px 8px; width: 140px;">Status</td>
+          <td style="border: none; padding: 4px 8px;"><span class="badge badge-yellow">Pendente de execucao</span></td>
+        </tr>
+        <tr>
+          <td style="border: none; color: var(--text-muted); padding: 4px 8px;">Impacto</td>
+          <td style="border: none; color: var(--text); padding: 4px 8px;">39 arquivos &mdash; varios em L2 (protegidos pelo framework)</td>
+        </tr>
+        <tr>
+          <td style="border: none; color: var(--text-muted); padding: 4px 8px;">Risco</td>
+          <td style="border: none; padding: 4px 8px;"><span class="badge badge-green">Baixo</span></td>
+        </tr>
+        <tr>
+          <td style="border: none; color: var(--text-muted); padding: 4px 8px;">Conclusao</td>
+          <td style="border: none; color: var(--text); padding: 4px 8px;"><code>@pm</code> continua funcionando &mdash; nome e apenas cosmetico. <code>agent.id = pm</code> nunca muda.</td>
+        </tr>
+        <tr>
+          <td style="border: none; color: var(--text-muted); padding: 4px 8px;">Plano</td>
+          <td style="border: none; color: var(--text); padding: 4px 8px;">Alterar apenas arquivos L3/L4 e IDEs &mdash; nao tocar nos arquivos L2 protegidos do framework</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="card" style="margin-bottom: 16px;">
+      <div class="card-title">&#128190; Modo de Execucao Preferido</div>
+      <table style="border: none; background: transparent;">
+        <tr>
+          <td style="border: none; color: var(--text-muted); padding: 4px 8px; width: 140px;">Modo</td>
+          <td style="border: none; color: var(--text); padding: 4px 8px;"><strong>Interactive</strong> &mdash; com checkpoints educacionais (padrao dos projetos de Wilder)</td>
+        </tr>
+        <tr>
+          <td style="border: none; color: var(--text-muted); padding: 4px 8px;">Observacao</td>
+          <td style="border: none; color: var(--text); padding: 4px 8px;">Utilizado em todos os bootstraps: MB, MACTRON, PINEAL e MARKETING</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="card">
+      <div class="card-title">&#128279; Repositorios GitHub Criados</div>
+      <table style="border: none; background: transparent;">
+        <tr>
+          <td style="border: none; color: var(--text-muted); padding: 4px 8px; width: 140px;">Projeto MB</td>
+          <td style="border: none; color: var(--text); padding: 4px 8px;"><code>wilderleal-aios/projeto-mb</code> &mdash; privado &mdash; branch main</td>
+        </tr>
+        <tr>
+          <td style="border: none; color: var(--text-muted); padding: 4px 8px;">Projeto MACTRON</td>
+          <td style="border: none; color: var(--text); padding: 4px 8px;"><code>wilderleal-aios/projeto-mactron</code> &mdash; privado &mdash; branch main</td>
+        </tr>
+        <tr>
+          <td style="border: none; color: var(--text-muted); padding: 4px 8px;">Projeto PINEAL</td>
+          <td style="border: none; color: var(--text); padding: 4px 8px;"><code>wilderleal-aios/projeto-pineal</code> &mdash; privado &mdash; branch master</td>
+        </tr>
+        <tr style="background: rgba(63,185,80,0.04);">
+          <td style="border: none; color: var(--green); padding: 4px 8px; font-weight: 700;">Projeto MARKETING</td>
+          <td style="border: none; color: var(--text); padding: 4px 8px;"><code>wilderleal-aios/projeto-marketing</code> &mdash; privado &mdash; branch master &mdash; <span class="badge badge-green">ATUAL</span></td>
+        </tr>
+      </table>
+    </div>
+  </section>
+
+  <!-- AGENTES -->
+  <section class="section" id="agentes">
+    <div class="section-title"><span class="icon">&#129302;</span> Sistema de Agentes AIOS</div>
+
+    <div style="margin-bottom: 16px; color: var(--text-muted); font-size: 13px;">
+      Ative os agentes com <code>@nome-do-agente</code> ou <code>/AIOS:agents:nome</code>. Use o prefixo <code>*</code> para comandos.
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Agente</th>
+          <th>Persona</th>
+          <th>Escopo Principal</th>
+          <th>Autoridade Exclusiva</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>@dev</code></td>
+          <td>Dex</td>
+          <td>Implementacao de codigo</td>
+          <td>git add, commit, merge local</td>
+        </tr>
+        <tr>
+          <td><code>@qa</code></td>
+          <td>Quinn</td>
+          <td>Testes e qualidade</td>
+          <td>QA Gate, aprovacao de stories</td>
+        </tr>
+        <tr>
+          <td><code>@architect</code></td>
+          <td>Aria</td>
+          <td>Arquitetura e design tecnico</td>
+          <td>Decisoes de arquitetura</td>
+        </tr>
+        <tr>
+          <td><code>@pm</code></td>
+          <td>Morgan</td>
+          <td>Product Management</td>
+          <td>*execute-epic, *create-epic</td>
+        </tr>
+        <tr>
+          <td><code>@po</code></td>
+          <td>Pax</td>
+          <td>Product Owner, stories/epics</td>
+          <td>*validate-story-draft</td>
+        </tr>
+        <tr>
+          <td><code>@sm</code></td>
+          <td>River</td>
+          <td>Scrum Master</td>
+          <td>*draft, *create-story</td>
+        </tr>
+        <tr>
+          <td><code>@analyst</code></td>
+          <td>Alex</td>
+          <td>Pesquisa e analise</td>
+          <td>Research, reports</td>
+        </tr>
+        <tr>
+          <td><code>@data-engineer</code></td>
+          <td>Dara</td>
+          <td>Database design</td>
+          <td>Schema DDL, migrations</td>
+        </tr>
+        <tr>
+          <td><code>@ux-design-expert</code></td>
+          <td>Uma</td>
+          <td>UX/UI design</td>
+          <td>Frontend spec</td>
+        </tr>
+        <tr style="background: rgba(63,185,80,0.04);">
+          <td><code>@devops</code></td>
+          <td><strong>Gage</strong></td>
+          <td>CI/CD, git push</td>
+          <td><strong>git push, PR create/merge (EXCLUSIVO)</strong></td>
+        </tr>
+        <tr>
+          <td><code>@aios-master</code></td>
+          <td>&mdash;</td>
+          <td>Governance do framework</td>
+          <td>Override todas as restricoes</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- COMANDOS DEVOPS -->
+  <section class="section" id="comandos-devops">
+    <div class="section-title"><span class="icon">&#9889;</span> Comandos do @devops (Gage) &mdash; Lista Completa</div>
+
+    <div class="cmd-group">
+      <div class="cmd-group-title">Repositorio &amp; Ambiente</div>
+      <div class="cmd-list">
+        <div class="cmd-item"><span class="cmd-tag">*detect-repo</span><span class="cmd-desc">Detectar contexto do repositorio (framework-dev vs project-dev)</span></div>
+        <div class="cmd-item"><span class="cmd-tag">*environment-bootstrap</span><span class="cmd-desc">Setup completo do ambiente (CLIs, auth, Git/GitHub) &mdash; CONCLUIDO Sessao 1 MARKETING</span></div>
+        <div class="cmd-item"><span class="cmd-tag">*setup-github</span><span class="cmd-desc">Configurar infraestrutura DevOps (workflows, CodeRabbit, branch protection, secrets) &mdash; PROXIMO</span></div>
+        <div class="cmd-item"><span class="cmd-tag">*cleanup</span><span class="cmd-desc">Identificar e remover branches/arquivos obsoletos</span></div>
+      </div>
+    </div>
+
+    <div class="cmd-group">
+      <div class="cmd-group-title">Qualidade &amp; Push</div>
+      <div class="cmd-list">
+        <div class="cmd-item"><span class="cmd-tag">*pre-push</span><span class="cmd-desc">Executar todos os quality gates antes do push (lint, test, typecheck, build, CodeRabbit)</span></div>
+        <div class="cmd-item"><span class="cmd-tag">*push</span><span class="cmd-desc">Executar git push apos quality gates passarem</span></div>
+        <div class="cmd-item"><span class="cmd-tag">*version-check</span><span class="cmd-desc">Analisar versao e recomendar proxima (MAJOR.MINOR.PATCH)</span></div>
+        <div class="cmd-item"><span class="cmd-tag">*health-check</span><span class="cmd-desc">Diagnostico unificado (aios doctor + governance interpretation)</span></div>
+        <div class="cmd-item"><span class="cmd-tag">*sync-registry [--full] [--heal]</span><span class="cmd-desc">Sincronizar entity registry (incremental, full rebuild ou heal)</span></div>
+        <div class="cmd-item"><span class="cmd-tag">*check-docs</span><span class="cmd-desc">Verificar integridade de links de documentacao</span></div>
+      </div>
+    </div>
+
+    <div class="cmd-group">
+      <div class="cmd-group-title">GitHub Operations</div>
+      <div class="cmd-list">
+        <div class="cmd-item"><span class="cmd-tag">*create-pr</span><span class="cmd-desc">Criar pull request da branch atual</span></div>
+        <div class="cmd-item"><span class="cmd-tag">*release</span><span class="cmd-desc">Criar release versionada com changelog</span></div>
+        <div class="cmd-item"><span class="cmd-tag">*triage-issues</span><span class="cmd-desc">Analisar issues abertas, classificar e priorizar</span></div>
+        <div class="cmd-item"><span class="cmd-tag">*resolve-issue {number}</span><span class="cmd-desc">Investigar e resolver uma issue do GitHub end-to-end</span></div>
+        <div class="cmd-item"><span class="cmd-tag">*configure-ci</span><span class="cmd-desc">Setup/atualizar GitHub Actions workflows</span></div>
+      </div>
+    </div>
+
+    <div class="cmd-group">
+      <div class="cmd-group-title">MCP Management (Docker)</div>
+      <div class="cmd-list">
+        <div class="cmd-item"><span class="cmd-tag">*search-mcp</span><span class="cmd-desc">Buscar MCPs disponiveis no Docker MCP Toolkit catalog</span></div>
+        <div class="cmd-item"><span class="cmd-tag">*add-mcp</span><span class="cmd-desc">Adicionar MCP server ao Docker MCP Toolkit</span></div>
+        <div class="cmd-item"><span class="cmd-tag">*list-mcps</span><span class="cmd-desc">Listar MCPs habilitados e suas ferramentas</span></div>
+        <div class="cmd-item"><span class="cmd-tag">*remove-mcp</span><span class="cmd-desc">Remover MCP server do Docker MCP Toolkit</span></div>
+        <div class="cmd-item"><span class="cmd-tag">*setup-mcp-docker</span><span class="cmd-desc">Configuracao inicial do Docker MCP Toolkit</span></div>
+      </div>
+    </div>
+
+    <div class="cmd-group">
+      <div class="cmd-group-title">Worktree Management</div>
+      <div class="cmd-list">
+        <div class="cmd-item"><span class="cmd-tag">*create-worktree</span><span class="cmd-desc">Criar worktree isolado para desenvolvimento de story</span></div>
+        <div class="cmd-item"><span class="cmd-tag">*list-worktrees</span><span class="cmd-desc">Listar todos os worktrees ativos com status</span></div>
+        <div class="cmd-item"><span class="cmd-tag">*remove-worktree</span><span class="cmd-desc">Remover worktree (com safety checks)</span></div>
+        <div class="cmd-item"><span class="cmd-tag">*cleanup-worktrees</span><span class="cmd-desc">Remover worktrees obsoletos (mais de 30 dias)</span></div>
+        <div class="cmd-item"><span class="cmd-tag">*merge-worktree</span><span class="cmd-desc">Merge worktree branch de volta para base</span></div>
+      </div>
+    </div>
+
+    <div class="cmd-group">
+      <div class="cmd-group-title">Migracao (V2 &rarr; V3)</div>
+      <div class="cmd-list">
+        <div class="cmd-item"><span class="cmd-tag">*inventory-assets</span><span class="cmd-desc">Gerar inventario de migracao dos assets V2</span></div>
+        <div class="cmd-item"><span class="cmd-tag">*analyze-paths</span><span class="cmd-desc">Analisar dependencias de paths e impacto da migracao</span></div>
+        <div class="cmd-item"><span class="cmd-tag">*migrate-agent</span><span class="cmd-desc">Migrar agente unico de V2 para V3</span></div>
+        <div class="cmd-item"><span class="cmd-tag">*migrate-batch</span><span class="cmd-desc">Migrar todos os agentes em batch com validacao</span></div>
+      </div>
+    </div>
+
+    <div class="cmd-group">
+      <div class="cmd-group-title">Sessao &amp; Controle</div>
+      <div class="cmd-list">
+        <div class="cmd-item"><span class="cmd-tag">*help</span><span class="cmd-desc">Mostrar todos os comandos disponiveis com descricoes</span></div>
+        <div class="cmd-item"><span class="cmd-tag">*session-info</span><span class="cmd-desc">Detalhes da sessao atual (historico de agentes, comandos)</span></div>
+        <div class="cmd-item"><span class="cmd-tag">*guide</span><span class="cmd-desc">Guia completo de uso deste agente</span></div>
+        <div class="cmd-item"><span class="cmd-tag">*yolo</span><span class="cmd-desc">Alternar modo de permissao (ask &rarr; auto &rarr; explore)</span></div>
+        <div class="cmd-item"><span class="cmd-tag">*exit</span><span class="cmd-desc">Sair do modo DevOps</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONSTITUTION -->
+  <section class="section" id="constitution">
+    <div class="section-title"><span class="icon">&#128220;</span> Constitution &mdash; Principios Fundamentais</div>
+    <div style="margin-bottom: 16px; color: var(--text-muted); font-size: 13px;">
+      Gates automaticos bloqueiam violacoes. Documento completo em <code>.aios-core/constitution.md</code>
+    </div>
+    <div class="constitution-grid">
+      <div class="constitution-item">
+        <div class="constitution-article">Art. I</div>
+        <div>
+          <div class="constitution-name">CLI First</div>
+          <span class="constitution-severity sev-non-neg">NON-NEGOTIABLE</span>
+        </div>
+      </div>
+      <div class="constitution-item">
+        <div class="constitution-article">Art. II</div>
+        <div>
+          <div class="constitution-name">Agent Authority</div>
+          <span class="constitution-severity sev-non-neg">NON-NEGOTIABLE</span>
+        </div>
+      </div>
+      <div class="constitution-item">
+        <div class="constitution-article">Art. III</div>
+        <div>
+          <div class="constitution-name">Story-Driven Development</div>
+          <span class="constitution-severity sev-must">MUST</span>
+        </div>
+      </div>
+      <div class="constitution-item">
+        <div class="constitution-article">Art. IV</div>
+        <div>
+          <div class="constitution-name">No Invention</div>
+          <span class="constitution-severity sev-must">MUST</span>
+        </div>
+      </div>
+      <div class="constitution-item">
+        <div class="constitution-article">Art. V</div>
+        <div>
+          <div class="constitution-name">Quality First</div>
+          <span class="constitution-severity sev-must">MUST</span>
+        </div>
+      </div>
+      <div class="constitution-item">
+        <div class="constitution-article">Art. VI</div>
+        <div>
+          <div class="constitution-name">Absolute Imports</div>
+          <span class="constitution-severity sev-should">SHOULD</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ESTRUTURA -->
+  <section class="section" id="estrutura">
+    <div class="section-title"><span class="icon">&#128193;</span> Estrutura do Framework</div>
+    <div class="cards-grid">
+      <div class="card">
+        <div class="card-title">&#128193; aios-core/</div>
+        <table style="border: none; background: transparent;">
+          <tr><td style="border: none; color: var(--green); font-family: monospace; padding: 3px 8px;">agents/</td><td style="border: none; color: var(--text-muted); padding: 3px 8px;">Definicoes de personas dos agentes</td></tr>
+          <tr><td style="border: none; color: var(--green); font-family: monospace; padding: 3px 8px;">tasks/</td><td style="border: none; color: var(--text-muted); padding: 3px 8px;">Workflows de tasks executaveis</td></tr>
+          <tr><td style="border: none; color: var(--green); font-family: monospace; padding: 3px 8px;">workflows/</td><td style="border: none; color: var(--text-muted); padding: 3px 8px;">Definicoes de workflows multi-step</td></tr>
+          <tr><td style="border: none; color: var(--green); font-family: monospace; padding: 3px 8px;">templates/</td><td style="border: none; color: var(--text-muted); padding: 3px 8px;">Templates de documentos e codigo</td></tr>
+          <tr><td style="border: none; color: var(--green); font-family: monospace; padding: 3px 8px;">checklists/</td><td style="border: none; color: var(--text-muted); padding: 3px 8px;">Checklists de validacao</td></tr>
+        </table>
+      </div>
+      <div class="card">
+        <div class="card-title">&#128193; docs/</div>
+        <table style="border: none; background: transparent;">
+          <tr><td style="border: none; color: var(--blue); font-family: monospace; padding: 3px 8px;">stories/</td><td style="border: none; color: var(--text-muted); padding: 3px 8px;">Stories de desenvolvimento (numeradas)</td></tr>
+          <tr><td style="border: none; color: var(--blue); font-family: monospace; padding: 3px 8px;">prd/</td><td style="border: none; color: var(--text-muted); padding: 3px 8px;">Documentos de requisitos (PRD)</td></tr>
+          <tr><td style="border: none; color: var(--blue); font-family: monospace; padding: 3px 8px;">architecture/</td><td style="border: none; color: var(--text-muted); padding: 3px 8px;">Documentacao de arquitetura</td></tr>
+          <tr><td style="border: none; color: var(--blue); font-family: monospace; padding: 3px 8px;">guides/</td><td style="border: none; color: var(--text-muted); padding: 3px 8px;">Guias para usuarios e devs</td></tr>
+        </table>
+      </div>
+      <div class="card">
+        <div class="card-title">&#128737; Camadas do Framework (L1-L4)</div>
+        <table style="border: none; background: transparent;">
+          <tr><td style="border: none; color: var(--red); padding: 3px 8px;"><strong>L1</strong></td><td style="border: none; color: var(--text-muted); padding: 3px 8px;">Core &mdash; NUNCA modificar</td></tr>
+          <tr><td style="border: none; color: var(--orange); padding: 3px 8px;"><strong>L2</strong></td><td style="border: none; color: var(--text-muted); padding: 3px 8px;">Templates &mdash; Somente estender</td></tr>
+          <tr><td style="border: none; color: var(--yellow); padding: 3px 8px;"><strong>L3</strong></td><td style="border: none; color: var(--text-muted); padding: 3px 8px;">Config &mdash; Mutavel com excecoes</td></tr>
+          <tr><td style="border: none; color: var(--green); padding: 3px 8px;"><strong>L4</strong></td><td style="border: none; color: var(--text-muted); padding: 3px 8px;">Runtime &mdash; Sempre modificar</td></tr>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- HISTORICO -->
+  <section class="section" id="historico">
+    <div class="section-title"><span class="icon">&#128197;</span> Historico de Sessoes</div>
+    <div class="timeline">
+
+      <div class="timeline-item">
+        <div class="timeline-date">2026-03-06 &mdash; Sessao 1 MARKETING (ATUAL)</div>
+        <div class="timeline-title">Projeto MARKETING &mdash; Bootstrap + Git + GitHub</div>
+        <ul class="timeline-items">
+          <li>@devops (Gage) ativado no Projeto Marketing (<code>04-PROJETO-MARKETING</code>)</li>
+          <li>Audit de CLIs: git 2.53.0, gh 2.87.3, node v24.13.1, npm 11.8.0, docker 29.2.1, supabase 2.75.0, pnpm 10.30.3, bun 1.3.10</li>
+          <li>GitHub CLI autenticado como <code>wilderleal-aios</code></li>
+          <li>Modo Interactive escolhido para <code>*environment-bootstrap</code></li>
+          <li>Elicitation: project_name = Projeto-Marketing | github_org = wilderleal-aios | repo = privado | railway = pulado</li>
+          <li><code>git init</code> em <code>C:\PROJETO-AIOS\04-PROJETO-MARKETING</code></li>
+          <li>Commit inicial <code>0e9bec9</code> &mdash; 1.206 arquivos &mdash; "chore: initial commit — AIOS Marketing project bootstrap"</li>
+          <li>Repositorio privado <code>wilderleal-aios/projeto-marketing</code> criado no GitHub</li>
+          <li>Push realizado com sucesso para <code>origin/master</code></li>
+          <li>Environment report salvo em <code>.aios/environment-report.yaml</code></li>
+          <li>Landing page de memoria atualizada para Projeto MARKETING</li>
+          <li>MEMORY.md criado em memoria persistente do Claude</li>
+          <li><strong>Proximo: *setup-github</strong></li>
+        </ul>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-date">2026-03-05 &mdash; Sessao 1 PINEAL</div>
+        <div class="timeline-title">Projeto PINEAL &mdash; Bootstrap + Git + GitHub</div>
+        <ul class="timeline-items">
+          <li>@devops (Gage) ativado no Projeto PINEAL (<code>03-PROJETO-PINEAL</code>)</li>
+          <li>Audit de CLIs: git 2.53.0, gh 2.87.3, node v24.13.1, npm 11.8.0, docker 29.2.1, supabase 2.75.0</li>
+          <li>GitHub CLI autenticado como <code>wilderleal-aios</code></li>
+          <li>Modo Interactive escolhido para <code>*environment-bootstrap</code></li>
+          <li>Elicitation: project_name = Projeto-Pineal | github_org = wilderleal-aios | optional tools = pulados</li>
+          <li><code>git init</code> em <code>C:\PROJETO-AIOS\03-PROJETO-PINEAL</code></li>
+          <li>Commit inicial <code>c004e11</code> &mdash; "chore: initial AIOS project setup"</li>
+          <li>Repositorio privado <code>wilderleal-aios/projeto-pineal</code> criado no GitHub</li>
+          <li>Push realizado com sucesso para <code>origin/master</code></li>
+          <li>Environment report salvo em <code>.aios/environment-report.yaml</code></li>
+          <li>Landing page de memoria atualizada para Projeto PINEAL</li>
+          <li>MEMORY.md criado em memoria persistente do Claude</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-date">2026-03-05 &mdash; Sessao 3 (Projeto MACTRON)</div>
+        <div class="timeline-title">Projeto MACTRON &mdash; Bootstrap + Git + GitHub</div>
+        <ul class="timeline-items">
+          <li>@devops (Gage) ativado no Projeto Mactron (<code>02-PROJETO-MACTRON</code>)</li>
+          <li>Audit de CLIs: git 2.53.0, gh 2.87.3, node v24.13.1, npm 11.8.0, docker 29.2.1, supabase 2.75.0</li>
+          <li>GitHub CLI autenticado como <code>wilderleal-aios</code></li>
+          <li><code>*environment-bootstrap</code> executado em modo YOLO</li>
+          <li><code>git init</code> em <code>C:\PROJETO-AIOS\02-PROJETO-MACTRON</code></li>
+          <li>Commit inicial <code>3fa4def</code> &mdash; 1149 arquivos</li>
+          <li>Repositorio privado <code>wilderleal-aios/projeto-mactron</code> criado no GitHub</li>
+          <li>Branch renomeada de <code>master</code> para <code>main</code> e definida como padrao</li>
+          <li>Push realizado com sucesso para <code>origin/main</code></li>
+        </ul>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-date">2026-03-05 &mdash; Sessao 2 (Projeto MB)</div>
+        <div class="timeline-title">Finalizacao do Bootstrap do Projeto MB</div>
+        <ul class="timeline-items">
+          <li>Ubuntu (WSL) configurado com usuario e senha</li>
+          <li>Scoop instalado com sucesso no PowerShell</li>
+          <li>Supabase CLI v2.75.0 instalado e verificado</li>
+          <li>CodeRabbit instalado no Ubuntu (WSL)</li>
+          <li>Git inicializado e repositorio <code>wilderleal-aios/projeto-mb</code> criado no GitHub</li>
+          <li>Primeiro push &mdash; 1360 objetos enviados com sucesso</li>
+          <li><strong>*environment-bootstrap do Projeto MB 100% CONCLUIDO</strong></li>
+        </ul>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-date">2026-03-05 &mdash; Sessao 1 (Projeto MB)</div>
+        <div class="timeline-title">Inicio do Projeto + Environment Bootstrap</div>
+        <ul class="timeline-items">
+          <li>Identificado Wilder Leal, CEO PINEAL AI</li>
+          <li>Projeto localizado em <code>C:\PROJETO-AIOS\01-PROJETO-MB</code></li>
+          <li>Agente @devops (Gage) ativado com sucesso</li>
+          <li>pnpm v10.30.3 instalado com sucesso</li>
+          <li>Docker Desktop v4.63.0 instalado com sucesso</li>
+          <li>GitHub CLI autenticado como <code>wilderleal-aios</code></li>
+          <li>WSL instalado &mdash; reinicio pendente</li>
+          <li>Landing page de memoria criada em <code>memoria/memoria-projeto-mb.html</code></li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <strong>Projeto MARKETING</strong> &middot; Wilder Leal &middot; PINEAL AI &middot;
+  Synkra AIOS v2.0 &middot; GitHub: <strong>wilderleal-aios/projeto-marketing</strong> &middot;
+  Atualizado em <strong>2026-03-06 (Sessao 1 MARKETING &mdash; Bootstrap Concluido)</strong>
+</footer>
+
+</body>
+</html>
