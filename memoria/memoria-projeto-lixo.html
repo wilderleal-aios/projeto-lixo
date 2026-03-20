@@ -626,7 +626,33 @@
       </table>
     </div>
 
-    <div class="card">
+    <div class="card" style="margin-bottom: 16px;">
+      <div class="card-title">&#128273; Correcao de Hooks &mdash; UserPromptSubmit hook error</div>
+      <table style="border: none; background: transparent;">
+        <tr>
+          <td style="border: none; color: var(--text-muted); padding: 4px 8px; width: 140px;">Status</td>
+          <td style="border: none; padding: 4px 8px;"><span class="badge badge-green">Resolvido &mdash; 2026-03-06</span></td>
+        </tr>
+        <tr>
+          <td style="border: none; color: var(--text-muted); padding: 4px 8px;">Causa</td>
+          <td style="border: none; color: var(--text); padding: 4px 8px;"><code>settings.local.json</code> com caminho <code>05-PROJETO-LANÇAMENTO</code> (cedilha) enquanto a pasta no disco e <code>05-PROJETO-LANCAMENTO</code> (sem acento)</td>
+        </tr>
+        <tr>
+          <td style="border: none; color: var(--text-muted); padding: 4px 8px;">Pastas afetadas</td>
+          <td style="border: none; color: var(--text); padding: 4px 8px;"><code>05-PROJETO-LANCAMENTO</code> e <code>06-PROJETO-LIXO</code></td>
+        </tr>
+        <tr>
+          <td style="border: none; color: var(--text-muted); padding: 4px 8px;">Arquivo corrigido</td>
+          <td style="border: none; color: var(--text); padding: 4px 8px;"><code>.claude\settings.local.json</code> em ambas as pastas</td>
+        </tr>
+        <tr>
+          <td style="border: none; color: var(--text-muted); padding: 4px 8px;">Regra</td>
+          <td style="border: none; color: var(--text); padding: 4px 8px;">Ao copiar pasta de projeto, sempre atualizar o caminho dos hooks no <code>settings.local.json</code> para apontar para a nova pasta</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="card" style="margin-bottom: 16px;">
       <div class="card-title">&#128279; Repositorios GitHub Criados</div>
       <table style="border: none; background: transparent;">
         <tr>
@@ -905,7 +931,22 @@
     <div class="timeline">
 
       <div class="timeline-item">
-        <div class="timeline-date">2026-03-06 &mdash; Sessao 1 LANCAMENTO (ATUAL)</div>
+        <div class="timeline-date">2026-03-06 &mdash; Sessao 2 &mdash; Manutencao de Hooks (ATUAL)</div>
+        <div class="timeline-title">Correcao do Erro UserPromptSubmit hook error</div>
+        <ul class="timeline-items">
+          <li>Identificado erro <code>UserPromptSubmit hook error</code> nas pastas <code>05-PROJETO-LANCAMENTO</code> e <code>06-PROJETO-LIXO</code></li>
+          <li>Causa: <code>settings.local.json</code> apontava para <code>05-PROJETO-LANÇAMENTO</code> (com cedilha/acento) mas a pasta no disco e <code>05-PROJETO-LANCAMENTO</code> (sem acento)</li>
+          <li>Agravante: pasta <code>06-PROJETO-LIXO</code> era copia da <code>05</code> e herdou o caminho errado apontando para a pasta de origem</li>
+          <li>Corrigido: <code>settings.local.json</code> da <code>05-PROJETO-LANCAMENTO</code> agora aponta para o proprio caminho sem acento</li>
+          <li>Corrigido: <code>settings.local.json</code> da <code>06-PROJETO-LIXO</code> agora aponta para <code>06-PROJETO-LIXO</code> (propria pasta)</li>
+          <li>Hooks utilizados: <code>precompact-session-digest.cjs</code> e <code>synapse-engine.cjs</code></li>
+          <li>Regra aprendida: ao copiar pasta de projeto, sempre atualizar o <code>.claude\settings.local.json</code> com o novo caminho</li>
+          <li>Informacao salva na <code>MEMORY.md</code> do Claude para consultas futuras</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-date">2026-03-06 &mdash; Sessao 1 LANCAMENTO</div>
         <div class="timeline-title">Projeto LANCAMENTO &mdash; Bootstrap + Git + GitHub</div>
         <ul class="timeline-items">
           <li>@devops (Gage) ativado no Projeto Lancamento (<code>05-PROJETO-LANCAMENTO</code>)</li>
@@ -1013,7 +1054,7 @@
 <footer>
   <strong>Projeto LANCAMENTO</strong> &middot; Wilder Leal &middot; PINEAL AI &middot;
   Synkra AIOS v2.0 &middot; GitHub: <strong>wilderleal-aios/projeto-lancamento</strong> &middot;
-  Atualizado em <strong>2026-03-06 (Sessao 1 LANCAMENTO &mdash; Bootstrap Concluido)</strong>
+  Atualizado em <strong>2026-03-06 (Sessao 2 &mdash; Correcao de Hooks)</strong>
 </footer>
 
 </body>
